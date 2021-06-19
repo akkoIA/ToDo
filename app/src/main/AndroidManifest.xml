@@ -10,11 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".task_append"
+            android:name=".TaskAppendActivity"
             android:label="@string/title_activity_task_append"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".ToDo_append"
+            android:name=".ToDoAppendActivity"
             android:label="@string/title_activity_to_do_append"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
