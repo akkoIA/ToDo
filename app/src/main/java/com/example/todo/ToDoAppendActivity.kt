@@ -47,12 +47,28 @@ class ToDoAppendActivity : AppCompatActivity() {
 
             //もしidが間違っていたりして取得に失敗したら以下の「取得したデータをViewに設定する」処理は行わない
             if(item != null) {
-                findViewById<EditText>(R.id.edit_title).setText(item.title)
-                findViewById<EditText>(R.id.edit_content).setText(item.content)
-                findViewById<EditText>(R.id.edit_details).setText(item.details)
+                findViewById<EditText>(R.id.textView).setText(item.title)
+                findViewById<EditText>(R.id.RecyclerView1).setText(item.content)
+                //findViewById<EditText>(R.id.edit_details).setText(item.details)
                 //findViewById<ImageView>(R.id.image_view).setImageResource(item.icon)
             }
 
         }
+    }
+    // 画面が切り替わる時にデータを保存
+    override fun onPause() {
+        realm.executeTransaction {
+            val item = realm.where(SaveData::class.java).equalTo("id", id).findFirst()
+            item?.title = findViewById<EditText>(R.id.textView).text.toString()
+            item?.content = findViewById<EditText>(R.id.RecyclerView1).text.toString()
+            //item?.details = findViewById<EditText>(R.id.edit_details).text.toString()
+        }
+        super.onPause()
+    }
+
+    // Activity終了時にralmを終了
+    override fun onDestroy() {
+        realm.close()
+        super.onDestroy()
     }
 }

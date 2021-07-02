@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         // もしrealmのデータベースが空だったら初期データを作成する
         // 初期データ作成が必要なければ不要
-        if(realm.where(SaveData::class.java).findAll().isNullOrEmpty()) createInitList()
+        //if(realm.where(SaveData::class.java).findAll().isNullOrEmpty()) createInitList()
 
         plusButton.setOnClickListener(){
             val intent=Intent(this,ToDoAppendActivity::class.java)
@@ -77,11 +77,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     // 初期データ作成関数
-    fun createInitList(){
-        createSaveData("Android", "ドロイド君の頭部", "使い所はよく分からない", R.drawable.ic_android_black)
-        createSaveData("Run", "走る人のピクトグラム", "走ることを指示するときに使うらしい", R.drawable.ic_baseline_directions_run)
-        createSaveData("star", "星マーク", "お気に入りとかを表すときに使う", R.drawable.ic_baseline_star)
-    }
+//    fun createInitList(){
+//        createSaveData("Android", "ドロイド君の頭部", "使い所はよく分からない", R.drawable.ic_android_black)
+//        createSaveData("Run", "走る人のピクトグラム", "走ることを指示するときに使うらしい", R.drawable.ic_baseline_directions_run)
+//        createSaveData("star", "星マーク", "お気に入りとかを表すときに使う", R.drawable.ic_baseline_star)
+//    }
 
     // データ作成関数
     fun createSaveData(title: String, content: String, details: String, icon: Int){
