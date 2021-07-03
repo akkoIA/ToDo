@@ -16,7 +16,7 @@
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@drawable/ic_check_black_24dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RecyclerView1"
@@ -33,17 +33,18 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:text="タスクを追加"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="501dp" />
+        app:layout_constraintTop_toBottomOf="@+id/RecyclerView1" />
 
-    <TextView
-        android:id="@+id/textView"
+    <EditText
+        android:id="@+id/editText"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:text="タイトルを入力"
+        android:hint="タイトルを入力"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
