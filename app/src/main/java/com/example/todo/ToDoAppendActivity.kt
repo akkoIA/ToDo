@@ -29,6 +29,11 @@ class ToDoAppendActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        floatingActionButton3.setOnClickListener(){
+            val intent=Intent(this,MainActivity::class.java)
+            startActivity(intent)
+        }
+
         // 新規作成時ランダムに画像を設定するためのリスト
         //val imageList = listOf(R.drawable.ic_android_black, R.drawable.ic_baseline_directions_run, R.drawable.ic_baseline_star, R.drawable.ic_baseline_sports_esports, R.drawable.ic_baseline_tag_faces)
         // MainActivityのRecyclerViewの要素をタップした場合はidが，fabをタップした場合はnullが入っているはず
