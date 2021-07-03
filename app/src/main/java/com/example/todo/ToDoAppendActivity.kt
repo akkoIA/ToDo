@@ -1,10 +1,12 @@
 package com.example.todo
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageView
 import io.realm.Realm
+import kotlinx.android.synthetic.main.activity_to_do_append.*
 import java.util.*
 import kotlin.random.Random
 
@@ -19,6 +21,11 @@ class ToDoAppendActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_to_do_append)
+
+        button.setOnClickListener(){
+            val intent=Intent(this,TaskAppendActivity::class.java)
+            startActivity(intent)
+        }
 
         // 新規作成時ランダムに画像を設定するためのリスト
         //val imageList = listOf(R.drawable.ic_android_black, R.drawable.ic_baseline_directions_run, R.drawable.ic_baseline_star, R.drawable.ic_baseline_sports_esports, R.drawable.ic_baseline_tag_faces)
