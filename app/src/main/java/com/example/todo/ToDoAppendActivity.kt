@@ -14,67 +14,28 @@ class ToDoAppendActivity : AppCompatActivity() {
     private val realm by lazy {
         Realm.getDefaultInstance()
     }
-
-    var id: String? = null
-
+    var adapter: MyListAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_to_do_append)
 
-        button.setOnClickListener(){
-            val intent=Intent(this,TaskAppendActivity::class.java)
-            startActivity(intent)
-        }
+        //Intent.getStringExtraでMainActivityからのIDを受け取る
 
-        floatingActionButton3.setOnClickListener(){
-            val intent=Intent(this,MainActivity::class.java)
-            startActivity(intent)
-        }
+        //RealmでIDを元にデータを引っ張ってきてdataに代入
 
-        // 新規作成時ランダムに画像を設定するためのリスト
-        //val imageList = listOf(R.drawable.ic_android_black, R.drawable.ic_baseline_directions_run, R.drawable.ic_baseline_star, R.drawable.ic_baseline_sports_esports, R.drawable.ic_baseline_tag_faces)
-        // MainActivityのRecyclerViewの要素をタップした場合はidが，fabをタップした場合はnullが入っているはず
-        id = intent.getStringExtra("id")
-
-        // idがnull，つまり新規作成の場合
-        if(id == null){
-            // 乱数を生成し，画像をランダムに設定
-//            val rand = Random.nextInt(imageList.size - 1)
-//            findViewById<ImageView>(R.id.image_view).setImageResource(imageList[rand])
-
-            // 新しい要素に重複しないIDを設定するため，ランダムなUUIDを生成
-            id = UUID.randomUUID().toString()
-            realm.executeTransaction {
-                // 生成したIDを設定して新規作成
-                val item = it.createObject(SaveData::class.java, id)
-                //item.icon = imageList[rand]
+        // ToDoのリストを表示するAdapterを新しくもう一つ作って設定
+        adapter = MyListAdapter(this, object: MyListAdapter.OnItemClickListner{
+            override fun onItemClick(item: SaveData) {
+                // SecondActivityに遷移するためのIntent
+                val intent = Intent(applicationContext, ToDoAppendActivity::class.java)
+                // RecyclerViewの要素をタップするとintentによりSecondActivityに遷移する
+                // また，要素のidをSecondActivityに渡す
+                intent.putExtra("id", item.id)
+                startActivity(intent)
             }
+        })
 
 
-            // idがnull以外，つまり既に作成された要素を編集する場合
-        }else{
-            // MainActivityに渡されたidを元にデータを検索して取得
-            val item = realm.where(SaveData::class.java).equalTo("id", id).findFirst()
-
-            //もしidが間違っていたりして取得に失敗したら以下の「取得したデータをViewに設定する」処理は行わない
-            if(item != null) {
-                findViewById<EditText>(R.id.editText).setText(item.title)
-                //findViewById<EditText>(R.id.RecyclerView1).setText(item.content)
-                //findViewById<EditText>(R.id.edit_details).setText(item.details)
-                //findViewById<ImageView>(R.id.image_view).setImageResource(item.icon)
-            }
-
-        }
-    }
-    // 画面が切り替わる時にデータを保存
-    override fun onPause() {
-        realm.executeTransaction {
-            val item = realm.where(SaveData::class.java).equalTo("id", id).findFirst()
-            item?.title = findViewById<EditText>(R.id.editText).text.toString()
-            //item?.content = findViewById<RecyclerView>(R.id.RecyclerView1).toString()
-            //item?.details = findViewById<EditText>(R.id.edit_details).text.toString()
-        }
-        super.onPause()
     }
 
     // Activity終了時にralmを終了
