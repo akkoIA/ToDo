@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_to_do_append.*
 import java.util.*
@@ -55,7 +57,7 @@ class ToDoAppendActivity : AppCompatActivity() {
             //もしidが間違っていたりして取得に失敗したら以下の「取得したデータをViewに設定する」処理は行わない
             if(item != null) {
                 findViewById<EditText>(R.id.textView).setText(item.title)
-                findViewById<EditText>(R.id.RecyclerView1).setText(item.content)
+                //findViewById<EditText>(R.id.RecyclerView1).setText(item.content)
                 //findViewById<EditText>(R.id.edit_details).setText(item.details)
                 //findViewById<ImageView>(R.id.image_view).setImageResource(item.icon)
             }
@@ -66,8 +68,8 @@ class ToDoAppendActivity : AppCompatActivity() {
     override fun onPause() {
         realm.executeTransaction {
             val item = realm.where(SaveData::class.java).equalTo("id", id).findFirst()
-            item?.title = findViewById<EditText>(R.id.textView).text.toString()
-            item?.content = findViewById<EditText>(R.id.RecyclerView1).text.toString()
+            item?.title = findViewById<TextView>(R.id.textView).text.toString()
+            //item?.content = findViewById<RecyclerView>(R.id.RecyclerView1).toString()
             //item?.details = findViewById<EditText>(R.id.edit_details).text.toString()
         }
         super.onPause()

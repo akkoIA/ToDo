@@ -38,7 +38,7 @@ class MyListAdapter(private val context: Context, private val listener: OnItemCl
         holder.container.setOnClickListener { listener.onItemClick(item) }
         // list_itemの各ViewにRealmに保存したn番目の要素の各データを表示させる
         holder.textTitle.text = item.title
-        holder.textContent.text = item.content
+        //holder.textContent.text = item.content
         // 今回はアイコンがxmlリソースなのでsetImageResourceを使用
         //holder.icon.setImageResource(item.icon)
 

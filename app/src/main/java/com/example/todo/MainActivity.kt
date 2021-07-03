@@ -88,9 +88,9 @@ class MainActivity : AppCompatActivity() {
         realm.executeTransaction {
             val item = it.createObject(SaveData::class.java, UUID.randomUUID().toString())
             item.title = title
-            item.content = content
-            item.details = details
-            item.icon = icon
+           // item.content = content
+           // item.details = details
+            //item.icon = icon
         }
     }
 
