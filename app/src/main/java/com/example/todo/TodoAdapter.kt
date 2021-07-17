@@ -1,6 +1,7 @@
 package com.example.todo
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +37,8 @@ class TodoAdapter(private val context: Context, private val listener: OnItemClic
         // list_itemの各ViewにRealmに保存したn番目の要素の各データを表示させる
         holder.textTitle.text = item.title
         holder.textContent.text = item.content
+
+        Log.d("item value", item.title + item.content)
 
     }
 

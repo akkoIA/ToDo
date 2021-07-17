@@ -12,6 +12,7 @@ open class SaveData(
 ): RealmObject()
 
 open class TaskData(
+    @PrimaryKey open var id: String = UUID.randomUUID().toString(),
     open var title:String="",
     open var content:String=""
 ): RealmObject()

@@ -3,6 +3,7 @@ package com.example.todo
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -22,31 +23,44 @@ class TaskAppendActivity : AppCompatActivity() {
 
     var data: SaveData? = null
 
+    var id :String?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_append)
         Realm.init(this)
 
         //Intent.getStringExtraでMainActivityからのIDを受け取る
+        id=intent.getStringExtra("id")
 
         //RealmでIDを元にデータを引っ張ってきてdataに代入
+        if(id==null){
+            finish()
+        }else{
+            val item = realm.where(TaskData::class.java).equalTo("id", id).findFirst()
 
-        floatingActionButton2.setOnClickListener() {
-            if (textView3.text != null) {
-                val intent = Intent(this, ToDoAppendActivity::class.java)
-                startActivity(intent)
+            if(item!=null){
+                findViewById<EditText>(R.id.textView3).setText(item.title)
+                findViewById<EditText>(R.id.textView4).setText(item.content)
             }
         }
 
 
 
-        //floating action buttonタップ時の動作
-        findViewById<FloatingActionButton>(R.id.floatingActionButton2).setOnClickListener {
-            // SecondActivityに遷移するためのIntent
-            val intent = Intent(applicationContext, ToDoAppendActivity::class.java)
-            // SecondActivityに遷移
-            startActivity(intent)
+        floatingActionButton2.setOnClickListener() {
+            if (textView3.text != null) {
+                finish()
+            }
         }
+    }
+
+    override fun onPause() {
+        realm.executeTransaction {
+            val item = realm.where(TaskData::class.java).equalTo("id", id).findFirst()
+            item?.title = findViewById<EditText>(R.id.textView3).text.toString()
+            item?.content = findViewById<EditText>(R.id.textView4).text.toString()
+        }
+        super.onPause()
     }
     override fun onResume() {
         super.onResume()
